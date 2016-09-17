@@ -6,20 +6,20 @@
   
   <title>迷宫最短路径 | Nelly&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="迷宫最短路径网上关于迷宫路径的解法很多，不过看着总是怪怪的。分享一个自己实现的通过广度优先搜索完成的迷宫最短路径，并输出路径坐标。(程序实现了任意起点到达任意终点)
+  <meta name="description" content="网上关于迷宫路径的解法很多，不过看着总是怪怪的。分享一个自己实现的通过广度优先搜索完成的迷宫最短路径，并输出路径坐标。(程序实现了任意起点到达任意终点)
 题目描述：
 给定一个m × n(m行,n列)的矩阵，它表示一个迷宫，其中的1表示墙壁，0表示可以走的路，只能横着走或竖着走，不能斜着走，要求编程序找出从左上角到右下角的最短路线。入口点为[0,0],既第一空格是可以走的路。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="迷宫最短路径">
 <meta property="og:url" content="http://yoursite.com/2016/09/17/迷宫最短路径/index.html">
 <meta property="og:site_name" content="Nelly's Blog">
-<meta property="og:description" content="迷宫最短路径网上关于迷宫路径的解法很多，不过看着总是怪怪的。分享一个自己实现的通过广度优先搜索完成的迷宫最短路径，并输出路径坐标。(程序实现了任意起点到达任意终点)
+<meta property="og:description" content="网上关于迷宫路径的解法很多，不过看着总是怪怪的。分享一个自己实现的通过广度优先搜索完成的迷宫最短路径，并输出路径坐标。(程序实现了任意起点到达任意终点)
 题目描述：
 给定一个m × n(m行,n列)的矩阵，它表示一个迷宫，其中的1表示墙壁，0表示可以走的路，只能横着走或竖着走，不能斜着走，要求编程序找出从左上角到右下角的最短路线。入口点为[0,0],既第一空格是可以走的路。">
-<meta property="og:updated_time" content="2016-09-17T11:30:44.338Z">
+<meta property="og:updated_time" content="2016-09-17T11:35:17.788Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="迷宫最短路径">
-<meta name="twitter:description" content="迷宫最短路径网上关于迷宫路径的解法很多，不过看着总是怪怪的。分享一个自己实现的通过广度优先搜索完成的迷宫最短路径，并输出路径坐标。(程序实现了任意起点到达任意终点)
+<meta name="twitter:description" content="网上关于迷宫路径的解法很多，不过看着总是怪怪的。分享一个自己实现的通过广度优先搜索完成的迷宫最短路径，并输出路径坐标。(程序实现了任意起点到达任意终点)
 题目描述：
 给定一个m × n(m行,n列)的矩阵，它表示一个迷宫，其中的1表示墙壁，0表示可以走的路，只能横着走或竖着走，不能斜着走，要求编程序找出从左上角到右下角的最短路线。入口点为[0,0],既第一空格是可以走的路。">
   
@@ -84,10 +84,6 @@
   <time datetime="2016-09-17T07:25:25.355Z" itemprop="datePublished">2016-09-17</time>
 </a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/算法/">算法</a>
-  </div>
-
   </div>
   <div class="article-inner">
     
@@ -104,7 +100,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="迷宫最短路径"><a href="#迷宫最短路径" class="headerlink" title="迷宫最短路径"></a>迷宫最短路径</h2><p>网上关于迷宫路径的解法很多，不过看着总是怪怪的。分享一个自己实现的通过广度优先搜索完成的迷宫最短路径，并输出路径坐标。(程序实现了任意起点到达任意终点)</p>
+        <p>网上关于迷宫路径的解法很多，不过看着总是怪怪的。分享一个自己实现的通过广度优先搜索完成的迷宫最短路径，并输出路径坐标。(程序实现了任意起点到达任意终点)</p>
 <h3 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h3><blockquote>
 <p>给定一个m × n(m行,n列)的矩阵，它表示一个迷宫，其中的1表示墙壁，0表示可以走的路，只能横着走或竖着走，不能斜着走，要求编程序找出从左上角到右下角的最短路线。入口点为[0,0],既第一空格是可以走的路。<br><a id="more"></a></p>
 <h3 id="输入描述"><a href="#输入描述" class="headerlink" title="输入描述:"></a>输入描述:</h3><p>输入m,n分别代表迷宫的行和列。<br><br>输入m × n矩阵表示迷宫。<br><br>Sample Input:<br><br>7 5<br>0 0 0 0 0<br>0 1 1 1 0<br>0 0 1 1 0<br>1 0 1 0 0<br>0 0 0 1 0<br>0 1 1 0 0<br>0 0 0 0 0<br>Output:<br>(0,0)<br>(0,1)<br>(0,2)<br>(0,3)<br>(0,4)<br>(1,4)<br>(2,4)<br>(3,4)<br>(4,4)<br>(5,4)<br>(6,4)</p>
@@ -207,7 +203,7 @@ class Node{
     <footer class="article-footer">
 	
       
-        <a data-url="http://yoursite.com/2016/09/17/迷宫最短路径/" data-id="cit6xgfsm0000cs558cuze71p" class="article-share-link" data-share="baidu" data-title="迷宫最短路径">Share</a>
+        <a data-url="http://yoursite.com/2016/09/17/迷宫最短路径/" data-id="cit74efhb0000r455uxmrxi48" class="article-share-link" data-share="baidu" data-title="迷宫最短路径">Share</a>
       
 
       
@@ -227,13 +223,6 @@ class Node{
       <aside id="sidebar">
   
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">1</span></li></ul>
-    </div>
-  </div>
-
   
     
   <div class="widget-wrap">
@@ -300,7 +289,8 @@ class Node{
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2016 Nelly<br>
-      
+      <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
     </div>
 
   </div>
