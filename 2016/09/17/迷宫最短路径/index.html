@@ -78,7 +78,167 @@
   </div>
 </header>
     <div class="outer">
-      <section id="main"></section>
+      <section id="main"><article id="post-迷宫最短路径" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/09/17/迷宫最短路径/" class="article-date">
+  <time datetime="2016-09-17T07:25:25.355Z" itemprop="datePublished">2016-09-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      迷宫最短路径
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>网上关于迷宫路径的解法很多，不过看着总是怪怪的。分享一个自己实现的通过广度优先搜索完成的迷宫最短路径，并输出路径坐标。(程序实现了任意起点到达任意终点)</p>
+<h3 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h3><blockquote>
+<p>给定一个m × n(m行,n列)的矩阵，它表示一个迷宫，其中的1表示墙壁，0表示可以走的路，只能横着走或竖着走，不能斜着走，要求编程序找出从左上角到右下角的最短路线。入口点为[0,0],既第一空格是可以走的路。<br><a id="more"></a></p>
+<h3 id="输入描述"><a href="#输入描述" class="headerlink" title="输入描述:"></a>输入描述:</h3><p>输入m,n分别代表迷宫的行和列。<br>输入m × n矩阵表示迷宫。<br>Sample Input:<br>7 5<br>0 0 0 0 0<br>0 1 1 1 0<br>0 0 1 1 0<br>1 0 1 0 0<br>0 0 0 1 0<br>0 1 1 0 0<br>0 0 0 0 0<br>Sample Output:<br>(0,0)<br>(0,1)<br>(0,2)<br>(0,3)<br>(0,4)<br>(1,4)<br>(2,4)<br>(3,4)<br>(4,4)<br>(5,4)<br>(6,4)</p>
+</blockquote>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><pre><code>import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+public class BFS {
+
+    public Node bfs(int[][] map,Node start,Node end){
+        //队列用于存储经过的结点
+        Queue&lt;Node&gt; queue = new LinkedList&lt;Node&gt;();
+        //加入起点
+        queue.add(start);
+        //迷宫起始位置标记为1
+        map[start.x][start.y] = 1;
+        while(!queue.isEmpty()){
+            Node n = queue.poll();  
+            //判断是否为终点
+            if(n.x == end.x &amp;&amp; n.y == end.y){
+                return n;
+            }
+            //判断边界是否在迷宫边界内部  及 路径是否可通
+            if(n.x + 1 &lt; map.length &amp;&amp; map[n.x + 1][n.y] == 0){
+                //创建节点并将路径长度增加。(不需要可以不添加路径长度) 读者可自行修改。
+                Node e = new Node(n.x + 1,n.y,n.step+1); 
+                e.parent = n;  //指定当前结点父节点以便日后统计路径
+                queue.add(e);  //将经过的结点加入队列
+                map[n.x + 1][n.y] = 1; //经过的结点标记为1 表示已走过
+            }
+            if(n.x - 1 &gt;= 0 &amp;&amp; map[n.x - 1][n.y] == 0){
+                Node e = new Node(n.x - 1,n.y,n.step+1);
+                e.parent = n;
+                queue.add(e);
+                map[n.x - 1][n.y] = 1; 
+            }
+            if(n.y - 1 &gt;= 0 &amp;&amp; map[n.x][n.y - 1] == 0){
+                Node e = new Node(n.x,n.y - 1,n.step+1);
+                e.parent = n;
+                queue.add(e);
+                map[n.x][n.y - 1] = 1; 
+            }
+            if(n.y + 1 &lt; map[0].length &amp;&amp; map[n.x][n.y + 1] == 0){
+                Node e = new Node(n.x,n.y + 1,n.step+1);
+                e.parent = n;
+                queue.add(e);
+                map[n.x][n.y + 1] = 1; 
+            }
+
+        }
+        return null; //若无法到达终点返回空值
+    }
+    public void print(Node res){
+        if(res != null){
+            print(res.parent);
+            System.out.println(&quot;(&quot;+res.x+&quot;,&quot;+res.y+&quot;)&quot;);
+        }
+    }
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        while(in.hasNext()){
+            int m = in.nextInt();
+            int n = in.nextInt();
+            int[][] map = new int[m][n];
+            for(int i = 0;i &lt; m;i++){
+                for(int j = 0;j &lt; n;j++){
+                    map[i][j] = in.nextInt();
+                }
+            }
+            BFS b = new BFS();
+            Node start = new Node(0,0,0);    //默认为(0,0)
+            Node end = new Node(m-1,n-1);  //默认为右下角为终点如需更改可以自行修改
+            Node res = b.bfs(map,start,end);
+            System.out.println(&quot;最短路径长度:&quot;+res.step);
+            b.print(res);
+        }
+    }
+
+}
+
+class Node{
+    public int x;
+    public int y;
+    public int step;
+    public Node parent;
+    public Node(int x,int y){
+        this.x = x;
+        this.y = y;
+    }
+    //如需统计路径长度可以添加step用于计数
+    public Node(int x,int y,int step){
+        this.x = x;
+        this.y = y;
+        this.step = step;
+    }
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://www.hlnelly.top/2016/09/17/迷宫最短路径/" data-id="cita2sgr60002dg5582rg3vk0" class="article-share-link" data-share="baidu" data-title="迷宫最短路径">Share</a>
+      
+
+      
+        <a href="http://www.hlnelly.top/2016/09/17/迷宫最短路径/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+  
+</article>
+
+ <section id="comments">
+   <!-- 多说评论框 start -->
+   <div class="ds-thread" data-thread-key="post-迷宫最短路径" data-title="迷宫最短路径" data-url="http://www.hlnelly.top/2016/09/17/迷宫最短路径/"></div>
+   <!-- 多说评论框 end -->
+   <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+   <script type="text/javascript">
+   var duoshuoQuery = {short_name:'hlnelly'};
+     (function() {
+       var ds = document.createElement('script');
+       ds.type = 'text/javascript';ds.async = true;
+       ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+       ds.charset = 'UTF-8';
+       (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+     })();
+     </script>
+   <!-- 多说公共JS代码 end -->
+ </section>
+ 
+</section>
       
       <aside id="sidebar">
   
