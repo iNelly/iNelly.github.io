@@ -93,7 +93,7 @@
       
         <p>KMP算法学习了挺久，做个自我总结，分享个人的理解。  </p>
 <hr>
-<p>KMP算法最难理解的部分应该是’部分匹配表’如何产生，以及如何使用’部分匹配表’进行回溯匹配。<br><img src="/images/KMP1.png" alt="图1"><br>部分匹配值是如何得到的。精髓在于搜索词的的适当前缀和适当后缀相同。而在程序的实现中并没有枚举出所有的前缀和后缀进行比较，而是通过next数组(部分匹配表)记录后缀与前缀字符串第一个不相同的前缀位置。<br>先逐个查找字符串的对称性，可以看出前四个字符串abcd无对称性，所以next数组存储值为0。<br>当匹配至第5个字符时，发现a相等，next数组标记为1。匹配至第6个字符时，发现ab相等，next数组标记为2。而next数组值是如何求出来的?<br>
+<p>KMP算法最难理解的部分应该是’部分匹配表’如何产生，以及如何使用’部分匹配表’进行回溯匹配。<br><img src="/images/KMP1.PNG" alt=""><br>部分匹配值是如何得到的。精髓在于搜索词的的适当前缀和适当后缀相同。而在程序的实现中并没有枚举出所有的前缀和后缀进行比较，而是通过next数组(部分匹配表)记录后缀与前缀字符串第一个不相同的前缀位置。<br>先逐个查找字符串的对称性，可以看出前四个字符串abcd无对称性，所以next数组存储值为0。<br>当匹配至第5个字符时，发现a相等，next数组标记为1。匹配至第6个字符时，发现ab相等，next数组标记为2。而next数组值是如何求出来的?<br>
         
           <p class="article-more-link">
             <a href="/2016/10/01/KMP/#more">Read More</a>
@@ -103,7 +103,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.hlnelly.top/2016/10/01/KMP/" data-id="citrw0kog0002hk55apfr1wh2" class="article-share-link" data-share="baidu" data-title="KMP算法学习">分享到</a>
+        <a data-url="http://www.hlnelly.top/2016/10/01/KMP/" data-id="citrw3bcq00021k55tek4u7u8" class="article-share-link" data-share="baidu" data-title="KMP算法学习">分享到</a>
       
 
       
@@ -152,7 +152,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.hlnelly.top/2016/09/17/迷宫最短路径/" data-id="citrw0kop0003hk55j75ubfkp" class="article-share-link" data-share="baidu" data-title="迷宫最短路径">分享到</a>
+        <a data-url="http://www.hlnelly.top/2016/09/17/迷宫最短路径/" data-id="citrw3bcy00031k552ua74pef" class="article-share-link" data-share="baidu" data-title="迷宫最短路径">分享到</a>
       
 
       
