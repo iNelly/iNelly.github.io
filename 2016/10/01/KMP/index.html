@@ -16,14 +16,14 @@ KMP算法最难理解的部分应该是’部分匹配表’如何产生，以�
 <meta property="og:description" content="KMP算法学习了挺久，做个自我总结，分享个人的理解。  
 
 KMP算法最难理解的部分应该是’部分匹配表’如何产生，以及如何使用’部分匹配表’进行回溯匹配。部分匹配值是如何得到的。精髓在于搜索词的的适当前缀和适当后缀相同。而在程序的实现中并没有枚举出所有的前缀和后缀进行比较，而是通过next数组(部分匹配表)记录后缀与前缀字符串第一个不相同的前缀位置。先逐个查找字符串的对称性，可以看出前四个字符串a">
-<meta property="og:image" content="http://www.hlnelly.top/KMP1.png">
-<meta property="og:updated_time" content="2016-10-02T00:23:08.444Z">
+<meta property="og:image" content="http://www.hlnelly.top/images/KMP1.png">
+<meta property="og:updated_time" content="2016-10-02T00:23:42.948Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="KMP算法学习">
 <meta name="twitter:description" content="KMP算法学习了挺久，做个自我总结，分享个人的理解。  
 
 KMP算法最难理解的部分应该是’部分匹配表’如何产生，以及如何使用’部分匹配表’进行回溯匹配。部分匹配值是如何得到的。精髓在于搜索词的的适当前缀和适当后缀相同。而在程序的实现中并没有枚举出所有的前缀和后缀进行比较，而是通过next数组(部分匹配表)记录后缀与前缀字符串第一个不相同的前缀位置。先逐个查找字符串的对称性，可以看出前四个字符串a">
-<meta name="twitter:image" content="http://www.hlnelly.top/KMP1.png">
+<meta name="twitter:image" content="http://www.hlnelly.top/images/KMP1.png">
   
     <link rel="alternative" href="/atom.xml" title="Nelly&#39;s Blog" type="application/atom+xml">
   
@@ -100,7 +100,7 @@ KMP算法最难理解的部分应该是’部分匹配表’如何产生，以�
       
         <p>KMP算法学习了挺久，做个自我总结，分享个人的理解。  </p>
 <hr>
-<p>KMP算法最难理解的部分应该是’部分匹配表’如何产生，以及如何使用’部分匹配表’进行回溯匹配。<br><img src="KMP1.png" alt="KMP1.png"><br>部分匹配值是如何得到的。精髓在于搜索词的的适当前缀和适当后缀相同。而在程序的实现中并没有枚举出所有的前缀和后缀进行比较，而是通过next数组(部分匹配表)记录后缀与前缀字符串第一个不相同的前缀位置。<br>先逐个查找字符串的对称性，可以看出前四个字符串abcd无对称性，所以next数组存储值为0。<br>当匹配至第5个字符时，发现a相等，next数组标记为1。匹配至第6个字符时，发现ab相等，next数组标记为2。而next数组值是如何求出来的?<br><a id="more"></a><br>基本实现方法如下:<br>由于next数组默认初始值为0，故逐个比较字符时一旦不相等便回到next[i-1]所标记的坐标位置比较，相等则next[i] = next[i-1] + 1。你会发现图中位置为7的字符所对应的next数组值为1，而上文所说的一旦不同便回到next[i-1]比较，此时’d’ != ‘a’为什么next[7]的值为1呢?<br>这个就是next数组计算的关键所在！当回溯到位置3时发现字符不匹配则继续回溯位置为3对应的next数组所标记的坐标(即坐标为0),发现’a’==’a’，所以next[7] = next[0] + 1。读者可以根据上述自我计算一下位置为14，15的next数组值。<br>下面给出具体的程序实现:  </p>
+<p>KMP算法最难理解的部分应该是’部分匹配表’如何产生，以及如何使用’部分匹配表’进行回溯匹配。<br><img src="images/KMP1.png" alt="KMP1.png"><br>部分匹配值是如何得到的。精髓在于搜索词的的适当前缀和适当后缀相同。而在程序的实现中并没有枚举出所有的前缀和后缀进行比较，而是通过next数组(部分匹配表)记录后缀与前缀字符串第一个不相同的前缀位置。<br>先逐个查找字符串的对称性，可以看出前四个字符串abcd无对称性，所以next数组存储值为0。<br>当匹配至第5个字符时，发现a相等，next数组标记为1。匹配至第6个字符时，发现ab相等，next数组标记为2。而next数组值是如何求出来的?<br><a id="more"></a><br>基本实现方法如下:<br>由于next数组默认初始值为0，故逐个比较字符时一旦不相等便回到next[i-1]所标记的坐标位置比较，相等则next[i] = next[i-1] + 1。你会发现图中位置为7的字符所对应的next数组值为1，而上文所说的一旦不同便回到next[i-1]比较，此时’d’ != ‘a’为什么next[7]的值为1呢?<br>这个就是next数组计算的关键所在！当回溯到位置3时发现字符不匹配则继续回溯位置为3对应的next数组所标记的坐标(即坐标为0),发现’a’==’a’，所以next[7] = next[0] + 1。读者可以根据上述自我计算一下位置为14，15的next数组值。<br>下面给出具体的程序实现:  </p>
 <pre><code>public int[] next(char[] pattern){
     int[] next = new int[pattern.length];
     next[0] = 0;
@@ -123,7 +123,7 @@ KMP算法最难理解的部分应该是’部分匹配表’如何产生，以�
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.hlnelly.top/2016/10/01/KMP/" data-id="citrvw6590002z8553c5ymlu0" class="article-share-link" data-share="baidu" data-title="KMP算法学习">分享到</a>
+        <a data-url="http://www.hlnelly.top/2016/10/01/KMP/" data-id="citrvwycc00025k55txr0o23n" class="article-share-link" data-share="baidu" data-title="KMP算法学习">Share</a>
       
 
       
@@ -139,7 +139,7 @@ KMP算法最难理解的部分应该是’部分匹配表’如何产生，以�
   
   
     <a href="/2016/09/17/迷宫最短路径/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">上一篇</strong>
+      <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">迷宫最短路径</div>
     </a>
   
@@ -156,7 +156,7 @@ KMP算法最难理解的部分应该是’部分匹配表’如何产生，以�
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">标签</h3>
+    <h3 class="widget-title">Tags</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li></ul>
     </div>
@@ -165,7 +165,7 @@ KMP算法最难理解的部分应该是’部分匹配表’如何产生，以�
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
+    <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
       <a href="/tags/算法/" style="font-size: 10px;">算法</a>
     </div>
@@ -174,7 +174,7 @@ KMP算法最难理解的部分应该是’部分匹配表’如何产生，以�
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li></ul>
     </div>
@@ -183,7 +183,7 @@ KMP算法最难理解的部分应该是’部分匹配表’如何产生，以�
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">近期文章</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
@@ -202,7 +202,7 @@ KMP算法最难理解的部分应该是’部分匹配表’如何产生，以�
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">友情链接</h3>
+    <h3 class="widget-title">Links</h3>
     <div class="widget">
       <ul>
         
@@ -238,7 +238,7 @@ KMP算法最难理解的部分应该是’部分匹配表’如何产生，以�
 </nav>
   <!-- totop start -->
 <div id="totop">
-<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+<a title="totop"><img src="/img/scrollup.png"/></a>
 </div>
 
 <!-- totop end -->
