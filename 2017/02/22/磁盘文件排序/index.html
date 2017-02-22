@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://www.hlnelly.top/images/diskSort1.PNG">
 <meta property="og:image" content="http://www.hlnelly.top/images/diskSort2.PNG">
 <meta property="og:image" content="http://www.hlnelly.top/images/diskSort3.PNG">
-<meta property="og:updated_time" content="2017-02-22T03:45:54.972Z">
+<meta property="og:updated_time" content="2017-02-22T03:47:57.299Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="磁盘文件排序">
 <meta name="twitter:description" content="输入:一个最多包含n个正整数的文件，每个数都小于n,其中n=10^7。如果再输入文件中有任何整数重复出现就是致命错误。没有其他数据与该整数相关联。
@@ -115,7 +115,7 @@ public class Test {
         InputStreamReader read;
         BufferedReader br;
         FileWriter writer = new FileWriter(outF);
-        int[] arr = new int[900];
+        int[] arr = new int[1000];
         String s;
         for(int i = 0;i &lt; listF.length;i++){
             if(listF[i].isFile()){
@@ -123,14 +123,14 @@ public class Test {
                 br = new BufferedReader(read);
                 String str;
                 while((str = br.readLine()) != null){
-                    arr[Integer.parseInt(str)-100] = 1;
+                    arr[Integer.parseInt(str)] = 1;
                 }
                 br.close();
             }
         }
-        for(int i = 0;i &lt; 900;i++){
+        for(int i = 0;i &lt; 1000;i++){
             if(arr[i] == 1){
-                writer.write(String.valueOf(i+100));
+                writer.write(String.valueOf(i));
                 writer.write(&quot;\r\n&quot;);
             }
         }
@@ -144,7 +144,7 @@ public class Test {
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.hlnelly.top/2017/02/22/磁盘文件排序/" data-id="cizgf503w0003qk55otk5dt1f" class="article-share-link" data-share="baidu" data-title="磁盘文件排序">Share</a>
+        <a data-url="http://www.hlnelly.top/2017/02/22/磁盘文件排序/" data-id="cizgf6j2e0003zw55wiuey83e" class="article-share-link" data-share="baidu" data-title="磁盘文件排序">Share</a>
       
 
       
