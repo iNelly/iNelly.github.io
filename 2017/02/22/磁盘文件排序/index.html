@@ -4,17 +4,28 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2016 | Nelly&#39;s Blog</title>
+  <title>磁盘文件排序 | Nelly&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="啃苹果的机器人">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Nelly's Blog">
-<meta property="og:url" content="http://www.hlnelly.top/archives/2016/index.html">
+  <meta name="description" content="输入:一个最多包含n个正整数的文件，每个数都小于n,其中n=10^7。如果再输入文件中有任何整数重复出现就是致命错误。没有其他数据与该整数相关联。
+输出:按升序排序的输入整数的列表。
+约束:最多有(大约)1MB的内存空间可用，有足够的磁盘存储空间可用。运行时间最多几分钟，运行时间为10秒就不需要进一步优化。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="磁盘文件排序">
+<meta property="og:url" content="http://www.hlnelly.top/2017/02/22/磁盘文件排序/index.html">
 <meta property="og:site_name" content="Nelly's Blog">
-<meta property="og:description" content="啃苹果的机器人">
+<meta property="og:description" content="输入:一个最多包含n个正整数的文件，每个数都小于n,其中n=10^7。如果再输入文件中有任何整数重复出现就是致命错误。没有其他数据与该整数相关联。
+输出:按升序排序的输入整数的列表。
+约束:最多有(大约)1MB的内存空间可用，有足够的磁盘存储空间可用。运行时间最多几分钟，运行时间为10秒就不需要进一步优化。">
+<meta property="og:image" content="http://www.hlnelly.top/images/diskSort1.PNG">
+<meta property="og:image" content="http://www.hlnelly.top/images/diskSort2.PNG">
+<meta property="og:image" content="http://www.hlnelly.top/images/diskSort3.PNG">
+<meta property="og:updated_time" content="2017-02-22T03:42:39.667Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nelly's Blog">
-<meta name="twitter:description" content="啃苹果的机器人">
+<meta name="twitter:title" content="磁盘文件排序">
+<meta name="twitter:description" content="输入:一个最多包含n个正整数的文件，每个数都小于n,其中n=10^7。如果再输入文件中有任何整数重复出现就是致命错误。没有其他数据与该整数相关联。
+输出:按升序排序的输入整数的列表。
+约束:最多有(大约)1MB的内存空间可用，有足够的磁盘存储空间可用。运行时间最多几分钟，运行时间为10秒就不需要进一步优化。">
+<meta name="twitter:image" content="http://www.hlnelly.top/images/diskSort1.PNG">
   
     <link rel="alternative" href="/atom.xml" title="Nelly&#39;s Blog" type="application/atom+xml">
   
@@ -67,58 +78,96 @@
   </div>
 </header>
     <div class="outer">
-      <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/10/01/KMP/" class="archive-article-date">
-  <time datetime="2016-10-01T08:48:20.000Z" itemprop="datePublished">Oct 1</time>
+      <section id="main"><article id="post-磁盘文件排序" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/22/磁盘文件排序/" class="article-date">
+  <time datetime="2017-02-22T03:12:16.000Z" itemprop="datePublished">2017-02-22</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/10/01/KMP/">KMP算法学习</a>
+    <h1 class="article-title" itemprop="name">
+      磁盘文件排序
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/09/17/迷宫最短路径/" class="archive-article-date">
-  <time datetime="2016-09-16T16:00:00.000Z" itemprop="datePublished">Sep 17</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/09/17/迷宫最短路径/">迷宫最短路径</a>
-    </h1>
-  
+        <p>输入:一个最多包含n个正整数的文件，每个数都小于n,其中n=10^7。如果再输入文件中有任何整数重复出现就是致命错误。没有其他数据与该整数相关联。</p>
+<p>输出:按升序排序的输入整数的列表。</p>
+<p>约束:最多有(大约)1MB的内存空间可用，有足够的磁盘存储空间可用。运行时间最多几分钟，运行时间为10秒就不需要进一步优化。<br><a id="more"></a><br>归并排序读入输入文件一次，然后再工作文件的帮助下完成排序并写入输入文件一次。工作文件需要多次读写。<br><img src="/images/diskSort1.PNG" alt="diskSort-1"><br>40趟算法读入输入文件多次，写输出文件仅一次，不是用中间文件。<br><img src="/images/diskSort2.PNG" alt="diskSort-2"><br>下图所示的方案更可取。我们介个上述两种方法的优点，读输入文件仅一次，且不使用中间文件。<br><img src="/images/diskSort3.PNG" alt="diskSort-3">  </p>
+<p>因此在编程珠玑一书中提供了通过位图或维向量表示集合，将集合中存在的数字的位置置为1，其他所有位置为0.<br>如{1,2,3,5,8}：<br>   0 1 1 1 0 1 0 0 1 0 0  </p>
+<pre><code>import java.io.*;
 
-    </header>
+public class Test {
+    public static void main(String[] args) throws IOException {
+
+        File file = new File(&quot;磁盘目录&quot;);
+        File outF = new File(&quot;输出文件&quot;);
+        File[] listF= file.listFiles();
+        InputStreamReader read;
+        BufferedReader br;
+        FileWriter writer = new FileWriter(outF);
+        int[] arr = new int[900];
+        String s;
+        for(int i = 0;i &lt; listF.length;i++){
+            if(listF[i].isFile()){
+                read = new InputStreamReader(new FileInputStream(listF[i]),&quot;UTF-8&quot;);
+                br = new BufferedReader(read);
+                String str;
+                while((str = br.readLine()) != null){
+                    arr[Integer.parseInt(str)-100] = 1;
+                }
+                br.close();
+            }
+        }
+        for(int i = 0;i &lt; 900;i++){
+            if(arr[i] == 1){
+                writer.write(String.valueOf(i+100));
+                writer.write(&quot;\r\n&quot;);
+            }
+        }
+        writer.flush();
+        writer.close();
+    }
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://www.hlnelly.top/2017/02/22/磁盘文件排序/" data-id="cizgf0g6f0003gk55g554zdao" class="article-share-link" data-share="baidu" data-title="磁盘文件排序">Share</a>
+      
+
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程珠玑/">编程珠玑</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/10/01/KMP/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">KMP算法学习</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
 </section>
       
       <aside id="sidebar">
