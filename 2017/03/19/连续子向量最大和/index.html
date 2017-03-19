@@ -16,7 +16,7 @@
 <meta property="og:image" content="http://www.hlnelly.top/images/连续最大和1.PNG">
 <meta property="og:image" content="http://www.hlnelly.top/images/连续最大和2.PNG">
 <meta property="og:image" content="http://www.hlnelly.top/images/连续最大和3.PNG">
-<meta property="og:updated_time" content="2017-03-19T15:21:20.442Z">
+<meta property="og:updated_time" content="2017-03-19T15:23:04.345Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="连续子向量最大和">
 <meta name="twitter:description" content="问题：输入一个具有n个浮点数字的向量，输出任何相邻子向量的最大和。程序输出应为x[2..6]的总和。">
@@ -96,7 +96,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>问题：输入一个具有n个浮点数字的向量，输出任何相邻子向量的最大和。<br><img src="/images/连续最大和.PNG" alt="连续最大和-1"><br>程序输出应为x[2..6]的总和。<br><a id="more"></a><br>为了避免高复杂度的算法，提供了两种较优的算法分别对该题进行解决并讨论。</p>
-<h3 id="一-分治算法"><a href="#一-分治算法" class="headerlink" title="一.分治算法"></a>一.分治算法</h3><p>将规模为n的问题，递归分解为近似n/2的子问题，然后将答案合并得到最终的最优解。<br>在本例题中解决规模为n的问题，由算法的思想将其划分为a、b两个子问题。<br><img src="/images/连续最大和1.PNG" alt="连续最大和-1"><br>然后通过递归分别找出a、b中连续子向量的最大和。称为m<sub>a</sub>和m<sub>b</sub>。<br><img src="/images/连续最大和2.PNG" alt="连续最大和-1"><br>最难考虑和解决的点便是跨越a、b两区的最大子向量m<sub>c</sub>。<br><img src="/images/连续最大和3.PNG" alt="连续最大和-1"><br>因此，在递归解决m<sub>a</sub>和m<sub>b</sub>后，需通过其他的计算求得m<sub>c</sub>并与m<sub>a</sub>和m<sub>b</sub>进行比较得出最优解。  </p>
+<h3 id="一-分治算法"><a href="#一-分治算法" class="headerlink" title="一.分治算法"></a>一.分治算法</h3><p>将规模为n的问题，递归分解为近似n/2的子问题，然后将答案合并得到最终的最优解。<br>在本例题中解决规模为n的问题，由算法的思想将其划分为a、b两个子问题。<br><img src="/images/连续最大和1.PNG" alt="连续最大和-2"><br>然后通过递归分别找出a、b中连续子向量的最大和。称为m<sub>a</sub>和m<sub>b</sub>。<br><img src="/images/连续最大和2.PNG" alt="连续最大和-3"><br>最难考虑和解决的点便是跨越a、b两区的最大子向量m<sub>c</sub>。<br><img src="/images/连续最大和3.PNG" alt="连续最大和-4"><br>因此，在递归解决m<sub>a</sub>和m<sub>b</sub>后，需通过其他的计算求得m<sub>c</sub>并与m<sub>a</sub>和m<sub>b</sub>进行比较得出最优解。  </p>
 <pre><code>public float max(float a,float b){
     return a &gt;= b ? a : b;
 }
@@ -131,7 +131,7 @@ public float maxSum(int l,int r,float[] arr){
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.hlnelly.top/2017/03/19/连续子向量最大和/" data-id="cj0gtyums0002x0552vqycxvc" class="article-share-link" data-share="baidu" data-title="连续子向量最大和">Share</a>
+        <a data-url="http://www.hlnelly.top/2017/03/19/连续子向量最大和/" data-id="cj0gu0kwb00056855i5snufq7" class="article-share-link" data-share="baidu" data-title="连续子向量最大和">Share</a>
       
 
       
