@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://www.hlnelly.top/images/Ng-Tomcat7.PNG">
 <meta property="og:image" content="http://www.hlnelly.top/images/Ng-Tomcat8.PNG">
 <meta property="og:image" content="http://www.hlnelly.top/images/Ng-Tomcat9.PNG">
-<meta property="og:updated_time" content="2017-04-06T14:56:21.977Z">
+<meta property="og:updated_time" content="2017-04-06T15:02:06.818Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx+Tomcat配置负载均衡集群">
 <meta name="twitter:description" content="无意中看到了关于Nginx+Tomcat配置负载均衡集群的文章，文章对小细节略简略，对于小白的我简直是一脸懵逼。经过一晚的尝试总算是将整个流程整好了，废话不多说。
@@ -118,7 +118,7 @@ Tomcat2:&lt;Connector port=&quot;8082&quot; protocol=&quot;HTTP/1.1&quot;
 
 Tomcat1:&lt;Connector port=&quot;8009&quot; protocol=&quot;AJP/1.3&quot; redirectPort=&quot;8443&quot; /&gt;
 Tomcat2:&lt;Connector port=&quot;8010&quot; protocol=&quot;AJP/1.3&quot; redirectPort=&quot;8443&quot; /&gt;
-</code></pre><p>第二个Tomcat对应的文件每个端口可以相应的+1，保证与第一个Tomcat的端口不相同即可。<br>3.创建一个简单的web项目，为区分访问的服务器在页面上标记8081、8082。这里要说明一下，由于为了区分因此同一个项目页面显示8081和8082更改页面后需要重新生成生成Artifacts。<br><img src="/images/Ng-Tomcat1.PNG" alt="nt-1"><br><img src="/images/Ng-Tomcat2.PNG" alt="nt-2"><br>4.分别部署到两台服务器上(注意使用IDEA需要添加/nginxDemo)<br><img src="/images/Ng-Tomcat3.PNG" alt="nt-3"><br>运行后效果:<br><img src="/images/Ng-Tomcat4.PNG" alt="nt-4"><br><img src="/images/Ng-Tomcat5.PNG" alt="nt-5">  </p>
+</code></pre><p>第二个Tomcat对应的文件每个端口可以相应的+1，保证与第一个Tomcat的端口不相同即可。<br>3.创建一个简单的web项目，为区分访问的服务器在页面上标记8081、8082。这里要说明一下，由于为了区分因此同一个项目页面显示8081和8082更改页面后需要重新生成生成Artifacts。<br><img src="/images/Ng-Tomcat1.PNG" alt="nt-1"><br><img src="/images/Ng-Tomcat2.PNG" alt="nt-2"><br>4.分别部署到两台服务器上(注意使用IDEA需要添加/nginxDemo)<br><img src="/images/Ng-Tomcat3.PNG" alt="nt-3"><br>运行后效果:<br><img src="/images/Ng-Tomcat4.PNG" alt="nt-4"><br><img src="/images/Ng-Tomcat5.PNG" alt="nt-4"> </p>
 <p>5.配置Nginx：进入\nginx-1.10.3\conf，修改nginx.conf。<br>(1)配置服务器组，在http{}节点之间添加upstream配置（注意不要写localhost,否则访问很慢）  </p>
 <pre><code>upstream nginxDemo{
   server 127.0.0.1:8081;
@@ -135,13 +135,13 @@ Tomcat2:&lt;Connector port=&quot;8010&quot; protocol=&quot;AJP/1.3&quot; redirec
         index  index.html index.htm;
         proxy_pass http://nginxDemo;
     }  
-</code></pre><p>如下图：<br><img src="/images/Ng-Tomcat6.PNG" alt="nt-6"><br>6.启动Nginx和Tomcat,在Window系统下可以直接进入nginx目录点击nginx.exe。<br>这里注意同时启动两个Tomcat，由于页面更改过，我们之前创建过两个Artifacts。我们之前创建过两个Artifacts(前提是提前部署过且运行过)。这时在启动Tomcat之前要确认两个服务器跑的是不同的文件，会发现两台服务器会同时变更Development下的文件，此时可以使用External Source导入\out下不同的文件(由于为了演示不同的页面显示因此需要多加这注意步骤，否则同一个项目无需如此)。<br><img src="/images/Ng-Tomcat7.PNG" alt="nt-7"><br>最后在浏览器输入地址<a href="http://localhost:8080/nginxDemo/index.jsp,每次访问就会轮流访问不同的Tomcat了。" target="_blank" rel="external">http://localhost:8080/nginxDemo/index.jsp,每次访问就会轮流访问不同的Tomcat了。</a><br><img src="/images/Ng-Tomcat8.PNG" alt="nt-8"><br><img src="/images/Ng-Tomcat9.PNG" alt="nt-9">  </p>
+</code></pre><p>如下图：<br><img src="/images/Ng-Tomcat6.PNG" alt="nt-6"><br>6.启动Nginx和Tomcat,在Window系统下可以直接进入nginx目录点击nginx.exe。<br>这里注意同时启动两个Tomcat，由于页面更改过，我们之前创建过两个Artifacts。我们之前创建过两个Artifacts(前提是提前部署过且运行过)。这时在启动Tomcat之前要确认两个服务器跑的是不同的文件，会发现两台服务器会同时变更Development下的文件，此时可以使用External Source导入\out下不同的文件(由于为了演示不同的页面显示因此需要多加这注意步骤，否则同一个项目无需如此)。<br><img src="/images/Ng-Tomcat7.PNG" alt="nt-7"><br>最后在浏览器输入地址<a href="http://localhost:8080/nginxDemo/index.jsp" target="_blank" rel="external">http://localhost:8080/nginxDemo/index.jsp</a><br>每次访问就会轮流访问不同的Tomcat了。<br><img src="/images/Ng-Tomcat8.PNG" alt="nt-8"><br><img src="/images/Ng-Tomcat9.PNG" alt="nt-9">  </p>
 
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.hlnelly.top/2017/04/06/Nginx-Tomcat配置负载均衡集群/" data-id="cj16izprs0002i85583syfj7s" class="article-share-link" data-share="baidu" data-title="Nginx+Tomcat配置负载均衡集群">Share</a>
+        <a data-url="http://www.hlnelly.top/2017/04/06/Nginx-Tomcat配置负载均衡集群/" data-id="cj16j6ya0000dv855x62cwpcm" class="article-share-link" data-share="baidu" data-title="Nginx+Tomcat配置负载均衡集群">分享到</a>
       
 
       
@@ -157,7 +157,7 @@ Tomcat2:&lt;Connector port=&quot;8010&quot; protocol=&quot;AJP/1.3&quot; redirec
   
   
     <a href="/2017/03/19/最大子数组/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">最大子数组</div>
     </a>
   
@@ -174,7 +174,7 @@ Tomcat2:&lt;Connector port=&quot;8010&quot; protocol=&quot;AJP/1.3&quot; redirec
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">标签</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端/">后端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程珠玑/">编程珠玑</a><span class="tag-list-count">2</span></li></ul>
     </div>
@@ -183,7 +183,7 @@ Tomcat2:&lt;Connector port=&quot;8010&quot; protocol=&quot;AJP/1.3&quot; redirec
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
       <a href="/tags/后端/" style="font-size: 10px;">后端</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/编程珠玑/" style="font-size: 20px;">编程珠玑</a>
     </div>
@@ -192,7 +192,7 @@ Tomcat2:&lt;Connector port=&quot;8010&quot; protocol=&quot;AJP/1.3&quot; redirec
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">归档</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li></ul>
     </div>
@@ -201,7 +201,7 @@ Tomcat2:&lt;Connector port=&quot;8010&quot; protocol=&quot;AJP/1.3&quot; redirec
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">近期文章</h3>
     <div class="widget">
       <ul>
         
@@ -232,7 +232,7 @@ Tomcat2:&lt;Connector port=&quot;8010&quot; protocol=&quot;AJP/1.3&quot; redirec
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Links</h3>
+    <h3 class="widget-title">友情链接</h3>
     <div class="widget">
       <ul>
         
@@ -268,7 +268,7 @@ Tomcat2:&lt;Connector port=&quot;8010&quot; protocol=&quot;AJP/1.3&quot; redirec
 </nav>
   <!-- totop start -->
 <div id="totop">
-<a title="totop"><img src="/img/scrollup.png"/></a>
+<a title="返回顶部"><img src="/img/scrollup.png"/></a>
 </div>
 
 <!-- totop end -->
