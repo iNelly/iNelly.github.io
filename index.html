@@ -70,6 +70,54 @@
     <div class="outer">
       <section id="main">
   
+    <article id="post-Nginx-Tomcat配置负载均衡集群" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/06/Nginx-Tomcat配置负载均衡集群/" class="article-date">
+  <time datetime="2017-04-06T12:52:35.000Z" itemprop="datePublished">2017-04-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/06/Nginx-Tomcat配置负载均衡集群/">Nginx+Tomcat配置负载均衡集群</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>无意中看到了关于Nginx+Tomcat配置负载均衡集群的文章，文章对小细节略简略，对于小白的我简直是一脸懵逼。经过一晚的尝试总算是将整个流程整好了，废话不多说。</p>
+<p>###一.Hello World<br>1.准备两个Tomcat和一个Nginx，具体的安装过程不详述网上教程文章很多。<br>2.由于装有两个Tomcat因此需要对两个Tomcat进行配置否则<br>无法同时启动。为了避免冲突进入对应目录下\bin\startup.bat进行编辑，在文件第一行添加如下两行:<br>SET JAVA_HOME=E:\Java\jdk1.8.0_65(JDK所在路径)<br>SET CATALINA_HOME=E:\Tomcat\apache-tomcat-7.0.73-1(对应的tomcat解压的路径)<br>修改\conf\server.xml文件<br>
+        
+          <p class="article-more-link">
+            <a href="/2017/04/06/Nginx-Tomcat配置负载均衡集群/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://www.hlnelly.top/2017/04/06/Nginx-Tomcat配置负载均衡集群/" data-id="cj16irfmw0003e055zqlveo9l" class="article-share-link" data-share="baidu" data-title="Nginx+Tomcat配置负载均衡集群">Share</a>
+      
+
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-最大子数组" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/03/19/最大子数组/" class="article-date">
@@ -102,7 +150,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.hlnelly.top/2017/03/19/最大子数组/" data-id="cj0qcek1a0003m855htkmg1m2" class="article-share-link" data-share="baidu" data-title="最大子数组">Share</a>
+        <a data-url="http://www.hlnelly.top/2017/03/19/最大子数组/" data-id="cj16irfn10005e0557go2tuft" class="article-share-link" data-share="baidu" data-title="最大子数组">Share</a>
       
 
       
@@ -151,7 +199,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.hlnelly.top/2017/02/22/磁盘文件排序/" data-id="cj0qcek1a0005m8558hyjlccs" class="article-share-link" data-share="baidu" data-title="磁盘文件排序">Share</a>
+        <a data-url="http://www.hlnelly.top/2017/02/22/磁盘文件排序/" data-id="cj16irfn20006e055nof43nz1" class="article-share-link" data-share="baidu" data-title="磁盘文件排序">Share</a>
       
 
       
@@ -201,7 +249,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.hlnelly.top/2016/10/01/KMP/" data-id="cj0qcek0v0002m855as6hhgu7" class="article-share-link" data-share="baidu" data-title="KMP算法学习">Share</a>
+        <a data-url="http://www.hlnelly.top/2016/10/01/KMP/" data-id="cj16irfmo0002e055zbsrbh5t" class="article-share-link" data-share="baidu" data-title="KMP算法学习">Share</a>
       
 
       
@@ -250,7 +298,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.hlnelly.top/2016/09/17/迷宫最短路径/" data-id="cj0qcek1a0006m855f59kns2m" class="article-share-link" data-share="baidu" data-title="迷宫最短路径">Share</a>
+        <a data-url="http://www.hlnelly.top/2016/09/17/迷宫最短路径/" data-id="cj16irfn50007e05512mybv1s" class="article-share-link" data-share="baidu" data-title="迷宫最短路径">Share</a>
       
 
       
@@ -276,7 +324,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程珠玑/">编程珠玑</a><span class="tag-list-count">2</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端/">后端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程珠玑/">编程珠玑</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -285,7 +333,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/编程珠玑/" style="font-size: 10px;">编程珠玑</a>
+      <a href="/tags/后端/" style="font-size: 10px;">后端</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/编程珠玑/" style="font-size: 20px;">编程珠玑</a>
     </div>
   </div>
 
@@ -294,7 +342,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -304,6 +352,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/04/06/Nginx-Tomcat配置负载均衡集群/">Nginx+Tomcat配置负载均衡集群</a>
+          </li>
         
           <li>
             <a href="/2017/03/19/最大子数组/">最大子数组</a>

@@ -1,0 +1,314 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Nginx+Tomcat配置负载均衡集群 | Nelly&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="无意中看到了关于Nginx+Tomcat配置负载均衡集群的文章，文章对小细节略简略，对于小白的我简直是一脸懵逼。经过一晚的尝试总算是将整个流程整好了，废话不多说。
+###一.Hello World1.准备两个Tomcat和一个Nginx，具体的安装过程不详述网上教程文章很多。2.由于装有两个Tomcat因此需要对两个Tomcat进行配置否则无法同时启动。为了避免冲突进入对应目录下\bin\star">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx+Tomcat配置负载均衡集群">
+<meta property="og:url" content="http://www.hlnelly.top/2017/04/06/Nginx-Tomcat配置负载均衡集群/index.html">
+<meta property="og:site_name" content="Nelly's Blog">
+<meta property="og:description" content="无意中看到了关于Nginx+Tomcat配置负载均衡集群的文章，文章对小细节略简略，对于小白的我简直是一脸懵逼。经过一晚的尝试总算是将整个流程整好了，废话不多说。
+###一.Hello World1.准备两个Tomcat和一个Nginx，具体的安装过程不详述网上教程文章很多。2.由于装有两个Tomcat因此需要对两个Tomcat进行配置否则无法同时启动。为了避免冲突进入对应目录下\bin\star">
+<meta property="og:image" content="http://www.hlnelly.top/images/Ng-Tomcat1.PNG">
+<meta property="og:image" content="http://www.hlnelly.top/images/Ng-Tomcat2.PNG">
+<meta property="og:image" content="http://www.hlnelly.top/images/Ng-Tomcat3.PNG">
+<meta property="og:image" content="http://www.hlnelly.top/images/Ng-Tomcat4.PNG">
+<meta property="og:image" content="http://www.hlnelly.top/images/Ng-Tomcat5.PNG">
+<meta property="og:image" content="http://www.hlnelly.top/images/Ng-Tomcat6.PNG">
+<meta property="og:image" content="http://www.hlnelly.top/images/Ng-Tomcat7.PNG">
+<meta property="og:image" content="http://www.hlnelly.top/images/Ng-Tomcat8.PNG">
+<meta property="og:image" content="http://www.hlnelly.top/images/Ng-Tomcat9.PNG">
+<meta property="og:updated_time" content="2017-04-06T14:47:26.150Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nginx+Tomcat配置负载均衡集群">
+<meta name="twitter:description" content="无意中看到了关于Nginx+Tomcat配置负载均衡集群的文章，文章对小细节略简略，对于小白的我简直是一脸懵逼。经过一晚的尝试总算是将整个流程整好了，废话不多说。
+###一.Hello World1.准备两个Tomcat和一个Nginx，具体的安装过程不详述网上教程文章很多。2.由于装有两个Tomcat因此需要对两个Tomcat进行配置否则无法同时启动。为了避免冲突进入对应目录下\bin\star">
+<meta name="twitter:image" content="http://www.hlnelly.top/images/Ng-Tomcat1.PNG">
+  
+    <link rel="alternative" href="/atom.xml" title="Nelly&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+</head>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Nelly&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Care about your craft! Think about Your Work!</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="http://www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="www.hlnelly.top">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+    <div class="outer">
+      <section id="main"><article id="post-Nginx-Tomcat配置负载均衡集群" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/06/Nginx-Tomcat配置负载均衡集群/" class="article-date">
+  <time datetime="2017-04-06T12:52:35.000Z" itemprop="datePublished">2017-04-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Nginx+Tomcat配置负载均衡集群
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>无意中看到了关于Nginx+Tomcat配置负载均衡集群的文章，文章对小细节略简略，对于小白的我简直是一脸懵逼。经过一晚的尝试总算是将整个流程整好了，废话不多说。</p>
+<p>###一.Hello World<br>1.准备两个Tomcat和一个Nginx，具体的安装过程不详述网上教程文章很多。<br>2.由于装有两个Tomcat因此需要对两个Tomcat进行配置否则<br>无法同时启动。为了避免冲突进入对应目录下\bin\startup.bat进行编辑，在文件第一行添加如下两行:<br>SET JAVA_HOME=E:\Java\jdk1.8.0_65(JDK所在路径)<br>SET CATALINA_HOME=E:\Tomcat\apache-tomcat-7.0.73-1(对应的tomcat解压的路径)<br>修改\conf\server.xml文件<br><a id="more"></a><br>    Tomcat1:<server port="8005" shutdown="SHUTDOWN"><br>    Tomcat2:<server port="8006" shutdown="SHUTDOWN"></server></server></p>
+<pre><code>Tomcat1:&lt;Connector port=&quot;8081&quot; protocol=&quot;HTTP/1.1&quot;
+           connectionTimeout=&quot;20000&quot;
+           redirectPort=&quot;8443&quot; /&gt;
+Tomcat2:&lt;Connector port=&quot;8082&quot; protocol=&quot;HTTP/1.1&quot;
+           connectionTimeout=&quot;20000&quot;
+           redirectPort=&quot;8443&quot; /&gt;
+
+Tomcat1:&lt;Connector port=&quot;8009&quot; protocol=&quot;AJP/1.3&quot; redirectPort=&quot;8443&quot; /&gt;
+Tomcat2:&lt;Connector port=&quot;8010&quot; protocol=&quot;AJP/1.3&quot; redirectPort=&quot;8443&quot; /&gt;
+</code></pre><p>第二个Tomcat对应的文件每个端口可以相应的+1，保证与第一个Tomcat的端口不相同即可。<br>3.创建一个简单的web项目，为区分访问的服务器在页面上标记8081、8082。这里要说明一下，由于为了区分因此同一个项目页面显示8081和8082更改页面后需要重新生成生成Artifacts。<br><img src="/images/Ng-Tomcat1.PNG" alt="nt-1"><br><img src="/images/Ng-Tomcat2.PNG" alt="nt-2"><br>4.分别部署到两台服务器上(注意使用IDEA需要添加/nginxDemo)<br><img src="/images/Ng-Tomcat3.PNG" alt="nt-3"><br>运行后效果:<br><img src="/images/Ng-Tomcat4.PNG" alt="nt-4"><br><img src="/images/Ng-Tomcat5.PNG" alt="nt-5">  </p>
+<p>5.配置Nginx：进入\nginx-1.10.3\conf，修改nginx.conf。<br>(1)配置服务器组，在http{}节点之间添加upstream配置（注意不要写localhost,否则访问很慢）  </p>
+<pre><code>upstream nginxDemo{
+  server 127.0.0.1:8081;
+  server 127.0.0.1:8082;    
+}  
+</code></pre><p>(2)修改nginx监听的端口号80，改为8080。</p>
+<pre><code>server{
+  listen  8080;
+  .....
+}
+</code></pre><p>(3)在location{}中，利用proxy_pass配置反向代理地址，此处“<a href="http://”不能少，后面的地址和upstream定义的名称保持一致。" target="_blank" rel="external">http://”不能少，后面的地址和upstream定义的名称保持一致。</a></p>
+<pre><code>location / {
+        root   html;
+        index  index.html index.htm;
+        proxy_pass http://nginxDemo;
+    }  
+</code></pre><p>如下图：<br><img src="/images/Ng-Tomcat6.PNG" alt="nt-6"><br>6.启动Nginx和Tomcat,在Window系统下可以直接进入nginx目录点击nginx.exe。<br>这里注意同时启动两个Tomcat，由于页面更改过，我们之前创建过两个Artifacts。我们之前创建过两个Artifacts(前提是提前部署过且运行过)。这时在启动Tomcat之前要确认两个服务器跑的是不同的文件，会发现两台服务器会同时变更Development下的文件，此时可以使用External Source导入\out下不同的文件(由于为了演示不同的页面显示因此需要多加这注意步骤，否则同一个项目无需如此)。<br><img src="/images/Ng-Tomcat7.PNG" alt="nt-7"><br>最后在浏览器输入地址<a href="http://localhost:8080/nginxDemo/index.jsp,每次访问就会轮流访问不同的Tomcat了。" target="_blank" rel="external">http://localhost:8080/nginxDemo/index.jsp,每次访问就会轮流访问不同的Tomcat了。</a><br><img src="/images/Ng-Tomcat8.PNG" alt="nt-8"><br><img src="/images/Ng-Tomcat9.PNG" alt="nt-9">  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://www.hlnelly.top/2017/04/06/Nginx-Tomcat配置负载均衡集群/" data-id="cj16irfmw0003e055zqlveo9l" class="article-share-link" data-share="baidu" data-title="Nginx+Tomcat配置负载均衡集群">Share</a>
+      
+
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/03/19/最大子数组/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">最大子数组</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端/">后端</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程珠玑/">编程珠玑</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/后端/" style="font-size: 10px;">后端</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/编程珠玑/" style="font-size: 20px;">编程珠玑</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/04/06/Nginx-Tomcat配置负载均衡集群/">Nginx+Tomcat配置负载均衡集群</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/19/最大子数组/">最大子数组</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/22/磁盘文件排序/">磁盘文件排序</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/01/KMP/">KMP算法学习</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/17/迷宫最短路径/">迷宫最短路径</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Links</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="https://github.com/iNelly" target="_blank">GitHub</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Nelly<br>
+       <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="totop"><img src="/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>
+  function SetShareData(cmd, config) {
+    if (shareDataTitle && shareDataUrl) {
+      config.bdText = shareDataTitle;
+      config.bdUrl = shareDataUrl;
+    }
+    return config;
+  }
+  window._bd_share_config={
+    "common":{onBeforeClick: SetShareData},
+    "share":{"bdCustomStyle":"/css/bdshare.css"}
+  };
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+</div>
+</body>
+</html>
