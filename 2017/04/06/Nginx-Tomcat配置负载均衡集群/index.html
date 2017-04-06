@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://www.hlnelly.top/images/Ng-Tomcat7.PNG">
 <meta property="og:image" content="http://www.hlnelly.top/images/Ng-Tomcat8.PNG">
 <meta property="og:image" content="http://www.hlnelly.top/images/Ng-Tomcat9.PNG">
-<meta property="og:updated_time" content="2017-04-06T15:02:06.818Z">
+<meta property="og:updated_time" content="2017-04-06T15:05:04.024Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx+Tomcat配置负载均衡集群">
 <meta name="twitter:description" content="无意中看到了关于Nginx+Tomcat配置负载均衡集群的文章，文章对小细节略简略，对于小白的我简直是一脸懵逼。经过一晚的尝试总算是将整个流程整好了，废话不多说。
@@ -118,7 +118,7 @@ Tomcat2:&lt;Connector port=&quot;8082&quot; protocol=&quot;HTTP/1.1&quot;
 
 Tomcat1:&lt;Connector port=&quot;8009&quot; protocol=&quot;AJP/1.3&quot; redirectPort=&quot;8443&quot; /&gt;
 Tomcat2:&lt;Connector port=&quot;8010&quot; protocol=&quot;AJP/1.3&quot; redirectPort=&quot;8443&quot; /&gt;
-</code></pre><p>第二个Tomcat对应的文件每个端口可以相应的+1，保证与第一个Tomcat的端口不相同即可。<br>3.创建一个简单的web项目，为区分访问的服务器在页面上标记8081、8082。这里要说明一下，由于为了区分因此同一个项目页面显示8081和8082更改页面后需要重新生成生成Artifacts。<br><img src="/images/Ng-Tomcat1.PNG" alt="nt-1"><br><img src="/images/Ng-Tomcat2.PNG" alt="nt-2"><br>4.分别部署到两台服务器上(注意使用IDEA需要添加/nginxDemo)<br><img src="/images/Ng-Tomcat3.PNG" alt="nt-3"><br>运行后效果:<br><img src="/images/Ng-Tomcat4.PNG" alt="nt-4"><br><img src="/images/Ng-Tomcat5.PNG" alt="nt-4"> </p>
+</code></pre><p>第二个Tomcat对应的文件每个端口可以相应的+1，保证与第一个Tomcat的端口不相同即可。<br>3.创建一个简单的web项目，为区分访问的服务器在页面上标记8081、8082。这里要说明一下，由于为了区分因此同一个项目页面显示8081和8082更改页面后需要重新生成生成Artifacts。<br><img src="/images/Ng-Tomcat1.PNG" alt="nt-1"><br><img src="/images/Ng-Tomcat2.PNG" alt="nt-2"><br>4.分别部署到两台服务器上(注意使用IDEA需要添加/nginxDemo)<br><img src="/images/Ng-Tomcat3.PNG" alt="nt-3"><br>运行后效果:<br><img src="/images/Ng-Tomcat4.PNG" alt="nt-4"><br><img src="/images/Ng-Tomcat5.PNG" alt="nt-5"> </p>
 <p>5.配置Nginx：进入\nginx-1.10.3\conf，修改nginx.conf。<br>(1)配置服务器组，在http{}节点之间添加upstream配置（注意不要写localhost,否则访问很慢）  </p>
 <pre><code>upstream nginxDemo{
   server 127.0.0.1:8081;
@@ -141,7 +141,7 @@ Tomcat2:&lt;Connector port=&quot;8010&quot; protocol=&quot;AJP/1.3&quot; redirec
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.hlnelly.top/2017/04/06/Nginx-Tomcat配置负载均衡集群/" data-id="cj16j8qg80003bo55s9lt5mpc" class="article-share-link" data-share="baidu" data-title="Nginx+Tomcat配置负载均衡集群">Share</a>
+        <a data-url="http://www.hlnelly.top/2017/04/06/Nginx-Tomcat配置负载均衡集群/" data-id="cj16jaqf80003gc557hhp62ng" class="article-share-link" data-share="baidu" data-title="Nginx+Tomcat配置负载均衡集群">Share</a>
       
 
       
